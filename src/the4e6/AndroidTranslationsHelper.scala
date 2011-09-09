@@ -17,15 +17,18 @@ object AndroidTranslationsHelper {
       exit("folder not exists")
     }
 
+    /** Name of strings.xml */
+    var stringsXmlFilename = if (args.length > 1) args(1) else "strings.xml"
+
     /** Try to find original strings.xml file in 'values' folder. */
-    val stringsOrig = findStrings(project, "values$")
+    val stringsOrig = findStrings(project, "values$", stringsXmlFilename)
     if (stringsOrig.isEmpty) {
-      exit("res/values/strings.xml not found")
+      exit("res/values/"+stringsXmlFilename+" not found")
     }
 
     /** Try to find localized strings.xml file in 'values*' folders. */
     val stringsLocalized =
-      findStrings(project, "values.") sortWith { _.getParent < _.getParent }
+      findStrings(project, "values.", stringsXmlFilename) sortWith { _.getParent < _.getParent }
     if (stringsLocalized.isEmpty) {
       exit("localized resources not found")
     }
@@ -48,11 +51,11 @@ object AndroidTranslationsHelper {
 
   /** Returns array of all string.xml files according to
    *  'dir'/res/'regex'/strings.xml pattern. */
-  def findStrings(dir: File, regex: String): Array[File] =
+  def findStrings(dir: File, regex: String, filename: String): Array[File] =
     dir.listFiles
       .withFilter { _.getName == "res" }
       .flatMap { _.listFiles.filter(f => regex.r.findFirstIn(f.getName).isDefined) }
-      .flatMap { _.listFiles.filter(_.getName == "strings.xml") }
+      .flatMap { _.listFiles.filter(_.getName == filename) }
 
   /** Returns a set of resource names. */
   def mkNamesSet(ns: NodeSeq, tag: String): Set[String] =
