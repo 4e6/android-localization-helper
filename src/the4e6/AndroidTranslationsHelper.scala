@@ -18,7 +18,7 @@ object AndroidTranslationsHelper {
     }
 
     /** Name of strings.xml */
-    var stringsXmlFilename = if (args.length > 1) args(1) else "strings.xml"
+    val stringsXmlFilename = if (args.length > 1) args(1) else "strings.xml"
 
     /** Try to find original strings.xml file in 'values' folder. */
     val stringsOrig = findStrings(project, "values$", stringsXmlFilename)
@@ -33,24 +33,24 @@ object AndroidTranslationsHelper {
       exit("localized resources not found")
     }
 
-    /** Original XML resources from values/strings.xml */
+    /** Original XML resources */
     val rOrig: NodeSeq = XML.loadFile(stringsOrig.head) \\ "resources"
 
-    stringsLocalized.foreach(f => {
+    stringsLocalized foreach { f =>
       val r = XML.loadFile(f) \\ "resources"
       printNiceName(f)
       val extraLine_? =
-        resTypes.map(t => {
+        resTypes map { t => 
           val names = mkNamesSet(r, t)
           val namesOrig = mkNamesSet(rOrig, t)
           printDiffs(t, namesOrig diff names, names diff namesOrig)
-        }) contains true
+        } contains true
       if (extraLine_?) println
-    })
+    }
   }
 
-  /** Returns array of all string.xml files according to
-   *  'dir'/res/'regex'/strings.xml pattern. */
+  /** Returns array of files according to
+   *  'dir'/res/'regex'/'filename' pattern. */
   def findStrings(dir: File, regex: String, filename: String): Array[File] =
     dir.listFiles
       .withFilter { _.getName == "res" }
@@ -80,7 +80,7 @@ object AndroidTranslationsHelper {
 
   def exit(msg: String) {
     println(msg)
-    System.exit(0)
+    sys.exit(0)
   }
 
   /** List of android resource types. */
