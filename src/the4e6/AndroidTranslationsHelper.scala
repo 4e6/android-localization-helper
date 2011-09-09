@@ -87,17 +87,18 @@ object AndroidTranslationsHelper {
   val resTypes = "string" :: "string-array" :: "plurals" :: Nil
 
   val helpMsg =
-    "Helps to find missing or obsolete translations for android resources\n" +
-    "\n" +
-    "Usage: You must specify android project folder\n" +
-    "`alh.sh /path/to/android/project'\n" +
-    "\n" +
-    "Output:\n" +
-    "[filename]\n" +
-    " *[resource type]\n" +
-    "  *[T] [resource name]\n" +
-    "  *[O] [resource name]\n" +
-    "\n" +
-    "[T] Resources need to be translated (exists in original xml but not in localized version)\n" +
-    "[O] Obsolete resources (exists in localized version but not in original one)\n"
+    """|Helps to find missing or obsolete translations for android resources
+       |
+       |Usage: `alh.sh /path/to/android/project [arrays.xml]'
+       |You must specify android project folder.
+       |Second parameter is optional, it specifies resources filename (strings.xml by default).
+       |
+       |Output:
+       |[filename]
+       | *[resource type]
+       |  *[T] [resource name]
+       |  *[O] [resource name]
+       |
+       |[T] Resources need to be translated (exists in original xml but not in localized version)
+       |[O] Obsolete resources (exists in localized version but not in original one)""".stripMargin
 }
