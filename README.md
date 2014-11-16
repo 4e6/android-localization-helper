@@ -4,7 +4,7 @@ Helps to find missing or obsolete translations for android resources.
 
 ##Usage:
 
-    alh.sh /path/to/android/project [arrays.xml]
+    alh /path/to/android/project [arrays.xml]
 
 You must specify android project folder.  
 Second parameter is optional, it specifies resources filename (strings.xml by default).
@@ -13,7 +13,7 @@ Second parameter is optional, it specifies resources filename (strings.xml by de
 
     $git clone git://github.com/4e6/android-localization-helper.git
     $cd android-localization-helper
-    $./bin/alh.sh /path/to/android/project
+    $./alh /path/to/android/project
 
 ##Output:
 
