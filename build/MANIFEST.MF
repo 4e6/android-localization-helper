@@ -1,1 +1,0 @@
-Main-Class: the4e6.AndroidTranslationsHelper

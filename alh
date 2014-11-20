@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# A thin wrapper around sbt-generated executable
+
+usage () {
+  local target="$1"
+  echo >&2 "not found $target"
+  echo >&2 "run 'sbt stage' to build project"
+  exit 1
+}
+
+declare -r base_path="$(dirname "$BASH_SOURCE")"
+declare -r script_path="$base_path/target/universal/stage/bin/android-localization-helper"
+
+[[ -x "$script_path" ]] || usage $script_path
+
+exec $script_path "$@"

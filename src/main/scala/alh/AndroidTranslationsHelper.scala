@@ -1,9 +1,10 @@
-package the4e6
+package alh
 
 import java.io.File
+import scala.language.postfixOps
 import scala.xml._
 
-/** Helps to find missing or obsolete translations of localized resources  
+/** Helps to find missing or obsolete translations of localized resources
  *  in android project. */
 object AndroidTranslationsHelper {
   def main(args: Array[String]) {
@@ -40,7 +41,7 @@ object AndroidTranslationsHelper {
       val r = XML.loadFile(f) \\ "resources"
       printNiceName(f)
       val extraLine_? =
-        resTypes map { t => 
+        resTypes map { t =>
           val names = mkNamesSet(r, t)
           val namesOrig = mkNamesSet(rOrig, t)
           printDiffs(t, namesOrig diff names, names diff namesOrig)
