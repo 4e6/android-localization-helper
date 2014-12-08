@@ -1,6 +1,8 @@
 name := "android-localization-helper"
 
-version := "0.2-SNAPSHOT"
+organization := "me.4e6"
+
+version := "0.3"
 
 scalaVersion := "2.11.4"
 
@@ -14,3 +16,7 @@ scalacOptions ++= Seq(
 libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.0.2"
 
 enablePlugins(JavaAppPackaging)
+
+seq(bintraySettings: _*)
+
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
